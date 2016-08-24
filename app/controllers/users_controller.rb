@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(params[:id])
   end
 
   # GET /users/new
@@ -24,6 +25,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+=begin
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -35,6 +37,19 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+
+=end
+
+    @user=User.new(user_params)
+    if @user.save
+      flash[:success] = "welcome #{@user.name} , to the dailypost!!!"
+      redirect_to @user
+
+
+    else
+      render 'new'
+    end
+
   end
 
   # PATCH/PUT /users/1
@@ -67,8 +82,10 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation )
+      params.require(:user).permit(:name, :email, :password,
+                                   :password_confirmation)
     end
+
 end

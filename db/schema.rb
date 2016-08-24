@@ -20,11 +20,13 @@ ActiveRecord::Schema.define(version: 20160823132456) do
     t.string   "location"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "user_id_id"
     t.integer  "user_id"
     t.datetime "published_at"
   end
 
   add_index "articles", ["user_id"], name: "index_articles_on_user_id"
+  add_index "articles", ["user_id_id"], name: "index_articles_on_user_id_id"
 
   create_table "articles_categories", force: :cascade do |t|
     t.integer "article_id"
@@ -40,16 +42,6 @@ ActiveRecord::Schema.define(version: 20160823132456) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.string   "email"
-    t.integer  "article_id"
-    t.string   "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "comments", ["article_id"], name: "index_comments_on_article_id"
-
   create_table "profiles", force: :cascade do |t|
     t.string   "name"
     t.integer  "age"
@@ -57,10 +49,12 @@ ActiveRecord::Schema.define(version: 20160823132456) do
     t.string   "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id_id"
     t.integer  "user_id"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
+  add_index "profiles", ["user_id_id"], name: "index_profiles_on_user_id_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
